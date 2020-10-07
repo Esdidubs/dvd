@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-    <title>Document</title>
+    <title>DVD Screensaver</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+    
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
 
-    <div style="display:none;">
-        <img id="source"
-             src="dvd.png"
-             width="150" height="113.5">
-      </div>
+        <div style="display:none;">
+            <img id="source"
+                src="dvd.png"
+                width="150" height="113.5">
+        </div>
 
-      <div style="display:none;">
-        <img id="backTest"
-             src=""
-             width="150" height="113.5">
-      </div>
+        <div style="display:none;">
+            <img id="backTest"
+                src=""
+                width="150" height="113.5">
+        </div>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
