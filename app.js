@@ -1,12 +1,12 @@
-// global ball variables
-let ballX = 75;
-let ballSpeedX = 4;
-let ballY = 75;
-let ballSpeedY = 4;
+// logo variables
+let logoX = 75;
+let logoY = 75;
+let logoSpeedX = 4;
+let logoSpeedY = 4;
 
-
-// other global variables
 let canvas, canvasContext;
+
+// color variables, including a random color array
 let colors = [
     "#63b598", "#ce7d78", "#ea9e70", "#a48a9e", "#c6e1e8", "#648177" ,"#0d5ac1" ,
     "#f205e6" ,"#1c0365" ,"#14a9ad" ,"#4ca2f9" ,"#a4e43f" ,"#d298e2" ,"#6119d0",
@@ -51,6 +51,7 @@ let colors = [
 let num = 0;
 let bColor = colors[num];
 
+// when page loads, this establishes the canvas and the fps
 window.onload = function(){
     canvas = document.getElementById('gameCanvas'); // so we can get width and height
     canvasContext = canvas.getContext('2d'); // this is the actual canvas 
@@ -59,11 +60,43 @@ window.onload = function(){
     setInterval(updateAll, 1000/framesPerSecond);    
 }
 
+// shell to run the functions
 function updateAll(){
-    ballMove();
+    logoMove();
     drawAll();    
 }
 
+// controls the logo movement
+function logoMove(){
+    logoX += logoSpeedX;
+    logoY += logoSpeedY;
+
+    // logo hits the right screen
+    if(logoX > canvas.width - 150 && logoSpeedX > 0){
+        logoSpeedX = -logoSpeedX;
+        colorCheck();
+    }
+
+    // logo hits the left screen
+    if(logoX < 0 && logoSpeedX < 0){
+        logoSpeedX = -logoSpeedX;
+        colorCheck();
+    }
+
+    // logo hits the top screen
+    if(logoY < 0 && logoSpeedY < 0){
+        logoSpeedY = -logoSpeedY;
+        colorCheck();
+    }
+
+    // logo goes off bottom screen
+    if(logoY > canvas.height - 90){
+        logoSpeedY = -logoSpeedY;
+        colorCheck();       
+    }
+}
+
+// changes the color to the next value in the array
 function colorCheck(){
     if(num < colors.length - 1){
         num++;
@@ -73,49 +106,20 @@ function colorCheck(){
     bColor = colors[num];
 }
 
-function ballMove(){
-    ballX += ballSpeedX;
-    ballY += ballSpeedY;
-
-    // ball hits the right screen
-    if(ballX > canvas.width - 150 && ballSpeedX > 0){
-        ballSpeedX = -ballSpeedX;
-        colorCheck();
-    }
-
-    // ball hits the left screen
-    if(ballX < 0 && ballSpeedX < 0){
-        ballSpeedX = -ballSpeedX;
-        colorCheck();
-    }
-
-    // ball hits the top screen
-    if(ballY < 0 && ballSpeedY < 0){
-        ballSpeedY = -ballSpeedY;
-        colorCheck();
-    }
-
-    // ball goes off bottom screen
-    if(ballY > canvas.height - 90){
-        ballSpeedY = -ballSpeedY;
-        colorCheck();
-       
-    }
-}
-
+// draws the items to the canvas
 function drawAll(){
+
     // canvas background
     canvasContext.fillStyle = 'black';
-    canvasContext.fillRect(0,0, canvas.clientWidth, canvas.height);
-   // canvasContext.fillRect(0,0, canvas.clientWidth, canvas.height, '#FFFFFF');
+    canvasContext.fillRect(0,0, canvas.clientWidth, canvas.height);    
 
+    // makes a rectangle of the current color in the bColor array
+    canvasContext.fillStyle = bColor;
+    canvasContext.fillRect(logoX, logoY, 150, 90);
 
-   // colorCircle(ballX, ballY, ballSize, 'white');     
-
-   var img = document.getElementById("source");
-   canvasContext.fillStyle = bColor;
-   canvasContext.fillRect(ballX, ballY, 150, 90);
-   canvasContext.drawImage(img, ballX, ballY, 150, 90);
+    // adds the dvd image over the color rectangle
+    var img = document.getElementById("source");
+    canvasContext.drawImage(img, logoX, logoY, 150, 90);
 };
 
 
