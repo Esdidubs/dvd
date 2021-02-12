@@ -1,5 +1,12 @@
-#source {
-    background-color: red;
-    color: red;
-    border: 2px solid white;
+main {
+    align-items: center;
+    display: flex; 
+    flex-direction: column;     
 }
+
+#logo {
+    display: none;
+}
+
+
+
